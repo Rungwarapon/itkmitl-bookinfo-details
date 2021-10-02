@@ -19,3 +19,10 @@ docker run -d --name details -p 8081:9080 -e ENABLE_EXTERNAL_BOOK_SERVICE=true d
 ```
 
 * Test with path `/details/1` and `/health`
+
+
+## How to run with Docker Compose
+
+```bash
+docker-compose up
+```
