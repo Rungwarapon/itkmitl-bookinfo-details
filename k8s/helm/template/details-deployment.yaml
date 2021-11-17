@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
-  template:
+  templates:
     metadata:
       labels:
         app: {{ .Release.Name }}
@@ -19,15 +19,6 @@ spec:
       - name: {{ .Release.Name }}
         image: {{ .Values.details.image }}:{{ .Values.details.tag }} 
         imagePullPolicy: Always
-        {{- if .Values.extraEnv }}
-        env:
-        {{- range $key, $value := .Values.extraEnv }}
-        - name: {{ $key }}
-          value: {{ $value | quote }}
-        {{- end }}
-        {{- end }}
-        
-        {{- end }}
       imagePullSecrets:
       - name: {{ .Values.details.imagePullSecrets }}
       

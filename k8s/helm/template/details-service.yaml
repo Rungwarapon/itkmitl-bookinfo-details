@@ -9,3 +9,5 @@ spec:
   - port: {{ .Values.details.port }}
   selector:
     app: {{ .Release.Name }}
+
+   
