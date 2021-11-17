@@ -17,45 +17,17 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}
-        image: {{ .Values.details.image }}:{{ .Values.details.tag }}
+        image: {{ .Values.details.image }}:{{ .Values.details.tag }} 
         imagePullPolicy: Always
-        ports:
-        - containerPort: {{ .Values.details.port }}
-          name: web-port
-          protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: {{ .Values.details.port }}
-            scheme: HTTP
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: {{ .Values.details.port }}
-            scheme: HTTP
-        {{- if or (.Values.extraEnv) (.Values.extraEnvSecret) }}
-        env:
-
         {{- if .Values.extraEnv }}
+        env:
         {{- range $key, $value := .Values.extraEnv }}
         - name: {{ $key }}
           value: {{ $value | quote }}
         {{- end }}
         {{- end }}
-
-        {{- if .Values.extraEnvSecret }}
-        {{- range $key, $value := .Values.extraEnvSecret }}
-        {{- range $secretName, $secretValue := $value }}
-        - name: {{ $key }}
-          valueFrom:
-            secretKeyRef:
-              name: {{ $secretName }}
-              key: {{ $secretValue | quote }}
-        {{- end }}
-        {{- end }}
-        {{- end }}
-
+        
         {{- end }}
       imagePullSecrets:
       - name: {{ .Values.details.imagePullSecrets }}
-  
+      
